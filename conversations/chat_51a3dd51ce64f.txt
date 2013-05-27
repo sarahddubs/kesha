@@ -1,0 +1,8 @@
+USER#1:51a3daab2d767 USER#2:51a3dabf1957e
+1369693635093 51a3daab2d767 hi 
+1369693639083 51a3dabf1957e hello 
+1369693665992 51a3daab2d767 wow this is awesome what  
+ END###:51a3daab2d767:  -1
+ END###:51a3dabf1957e: 3
+ END###:51a3dabf1957e:  -1
+ END###:51a3dabf1957e:  -1

@@ -100,7 +100,7 @@ function updateChat(){
 			});
 	 }
 	 else {
-		 setTimeout(updateChat, 1500);
+		 setTimeout(updateChat, 300);
 	 }
 }
 
@@ -306,7 +306,7 @@ function unlockChat() {
 		 lockChat();
 	});
 
-	
+// IF USER CLOSES TAB WINDOW
 window.onbeforeunload = confirmExit;
 function confirmExit() {
 	if (!hasRated){
@@ -334,23 +334,24 @@ function confirmExit() {
 	}
 }
 	
-	$('#end-convo').click(function() {
-		if (!usersReady) { // 1 person in chatroom, return to index
-			$.ajax({
-				type: "POST",
-				url: "clearroom.php",
-				success: function(data){
-					$.cookie('current_chatroom', '');
-					hasRated = true;
-					window.location = 'index.php';
-				}
-			});
-		} else { // 2 people in chatroom, someone hits End Conversation
-			if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
-				clearInterval(updateInterval);
+// END CONVERSATION BUTTON
+$('#end-convo').click(function() {
+	if (!usersReady) { // 1 person in chatroom, return to index
+		$.ajax({
+			type: "POST",
+			url: "clearroom.php",
+			success: function(data){
 				$.cookie('current_chatroom', '');
 				hasRated = true;
-				showRatingBox(false);
+				window.location = 'index.php';
 			}
-		} 
-	});
+		});
+	} else { // 2 people in chatroom, someone hits End Conversation
+		if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
+			clearInterval(updateInterval);
+			$.cookie('current_chatroom', '');
+			hasRated = true;
+			showRatingBox(false);
+		}
+	} 
+});

@@ -208,7 +208,13 @@
 						"Submit": function() {
 							clearInterval(countdown);
 							var box = this;
-							var answer = $('#qa').serialize().substring(7);
+							var radios = document.getElementsByName('answer');
+							var answer = '';
+							for (var i = 0, length = radios.length; i < length; i++) {
+								if (radios[i].checked) {
+									answer = radios[i].value;
+								}
+							}
 							$.ajax({
 							   type: "GET",
 							   url: "getanswer.php",
