@@ -206,8 +206,6 @@ function showRatingBox(partnerDisconnected) {
 	if (partnerDisconnected) {
 		$(".ui-button-text-only").css("margin-top", "70px");
 	}
-
-	
 }
 
 /*
@@ -248,3 +246,111 @@ function unlockChat() {
 	$("#chat-area").html("");
 }
 
+
+/* RUN CHATROOM */
+
+	// ask user for name with popup prompt    
+	var name = 'You';
+	var hasRated = false;
+	$("#name-area").html("");
+	
+	// kick off chat
+	var chat =  new Chat();
+	$(function() {
+	
+		 chat.getState(); 
+		 
+		 // watch textarea for key presses
+		 $("#sendie").keydown(function(event) {  
+			 var key = event.which;  
+			 //all keys including return.  
+			 if (key >= 33) {
+				 var maxLength = $(this).attr("maxlength");  
+				 var length = this.value.length;  
+				 // don't allow new content if length is maxed out
+				 if (length >= maxLength) {  
+					 event.preventDefault();  
+				 }  
+			}	  
+																																																		});
+		 // watch textarea for release of key press
+		 $('#sendie').keyup(function(e) {						 
+			  if (e.keyCode == 13) { 
+				var text = new Date().getTime() + ' ' + $.cookie('user_id') + ' ' + $(this).val(); // timestamp, usercookie, message
+				var maxLength = $(this).attr("maxlength");  
+				var length = text.length;  
+				// send 
+				if (length <= maxLength + 1) { 	 
+					chat.send(text, name);	
+					$(this).val("");
+				} else {
+					$(this).val(text.substring(0, maxLength));
+				}	
+			  }
+		 });
+		 
+		 
+		 $(".send-button").click(function() {
+			var text = new Date().getTime() + ' ' + $.cookie('user_id') + ' ' + $("#sendie").val(); // timestamp, usercookie, message
+			var maxLength = $("#sendie").attr("maxlength");  
+			var length = text.length; 
+			 
+			// send 
+			if (length <= maxLength + 1) { 
+				chat.send(text, name);	
+				$("#sendie").val("");
+			} else {
+				$("#sendie").val(text.substring(0, maxLength));
+			}	
+		 });
+		 lockChat();
+	});
+
+	
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+	if (!hasRated){
+		if (usersReady) {
+			$.ajax({
+			   type: "POST",
+			   url: "rate.php",
+			   data: {  
+						'chat_filename': file_name,
+						'rating': $.cookie('user_id') + ':  -1'
+					},
+			   success: function(data){
+				   $.cookie('current_chatroom', '');
+			   }
+			});	
+		} else {
+			$.ajax({
+			   type: "POST",
+			   url: "clearroom.php",
+			   success: function(data){	   
+					$.cookie('current_chatroom', '');
+			   }
+			});
+		}
+	}
+}
+	
+	$('#end-convo').click(function() {
+		if (!usersReady) { // 1 person in chatroom, return to index
+			$.ajax({
+				type: "POST",
+				url: "clearroom.php",
+				success: function(data){
+					$.cookie('current_chatroom', '');
+					hasRated = true;
+					window.location = 'index.php';
+				}
+			});
+		} else { // 2 people in chatroom, someone hits End Conversation
+			if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
+				clearInterval(updateInterval);
+				$.cookie('current_chatroom', '');
+				hasRated = true;
+				showRatingBox(false);
+			}
+		} 
+	});
