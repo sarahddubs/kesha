@@ -138,6 +138,7 @@
 <body onload="updateInterval = setInterval('chat.update()', 200)">
 <script>
 	$('#end-convo').click(function() {
+		console.log("HERE");
 		if (!usersReady) { // 1 person in chatroom, return to index
 			$.ajax({
 				type: "POST",
@@ -152,6 +153,7 @@
 			if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
 				clearInterval(updateInterval);
 				$.cookie('current_chatroom', '');
+				console.log("hasRated upon pressing exit is " + hasRated);
 				hasRated = true;
 				showRatingBox(false);
 			}
@@ -162,19 +164,20 @@
 <script>
 	
   window.onbeforeunload = confirmExit;
-  function confirmExit()
-  {
+  function confirmExit() {
+  	console.log("unload event, hasRated is " + hasRated);
   	if (!hasRated){
 		if (usersReady) {
 			$.ajax({
 			   type: "POST",
 			   url: "rate.php",
 			   data: {  
-						'chat_filename': file_name,
-						'rating': $.cookie('user_id') + ':  -1'
+					'chat_filename': file_name,
+					'rating': $.cookie('user_id') + ':  -2'
 					},
 			   success: function(data){
 				   $.cookie('current_chatroom', '');
+				   console.log("WROTE -2 TO THE DATA");
 			   }
 			});	
 		} else {
@@ -187,7 +190,7 @@
 			});
 		}
 	}
-	}
+  }
   
   
 </script>

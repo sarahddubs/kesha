@@ -193,7 +193,9 @@ function showRatingBox(partnerDisconnected) {
 								'chat_filename': file_name,
 								'rating': $.cookie('user_id') + ': ' + num
 							},
-					   success: function(data){	   
+					   success: function(data){
+					   		hasRated = true;
+					   		console.log("hasRated changed to " + hasRated);	   
 							$(box).dialog('close');
 							window.location = 'index.php';
 					   }
@@ -206,8 +208,6 @@ function showRatingBox(partnerDisconnected) {
 	if (partnerDisconnected) {
 		$(".ui-button-text-only").css("margin-top", "70px");
 	}
-
-	
 }
 
 /*
