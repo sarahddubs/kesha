@@ -361,8 +361,7 @@ function confirmExit() {
 				$.removeCookie('current_chatroom');
 				hasRated = true;
 				showRatingBox(false);
-
 			}
-		});
+		}
 	
 });
