@@ -75,6 +75,7 @@
 	
 	if (userID) { // user already has ID
 		var current_chatroom = $.cookie('current_chatroom');
+		console.log(current_chatroom);
 		if (current_chatroom) {
 			$.ajax({
 				type: "POST",
@@ -84,17 +85,21 @@
 					'rating': $.cookie('user_id') + ':  -1'
 				},
 				success: function(data){
-					$.cookie('current_chatroom', '');
 					console.log('WROTE TO RATE.PHP');
+					$.ajax({
+					   type: "POST",
+					   url: "clearroom.php",
+					   data: {  
+							   'current_chatroom': $.cookie('current_chatroom')
+					   },
+					   success: function(data){	   
+						   $.removeCookie('current_chatroom');
+						   console.log("CLEARED THE ROOM");
+					   }
+				   });
 				}
 			});	
-			$.ajax({
-				type: "POST",
-				url: "clearroom.php",
-				success: function(data){	   
-					$.cookie('current_chatroom', '');
-				}
-			});
+			
 		}
 	} else { // user at site for first time.
 

@@ -194,8 +194,10 @@ function showRatingBox(partnerDisconnected) {
 								'rating': $.cookie('user_id') + ': ' + num
 							},
 					   success: function(data){
+					   		$.removeCookie('current_chatroom');
 					   		hasRated = true;
-					   		console.log("hasRated changed to " + hasRated);	   
+					   		console.log("hasRated changed to " + hasRated);	
+					   		console.log("num is " + num);   
 							$(box).dialog('close');
 							window.location = 'index.php';
 					   }
@@ -321,15 +323,18 @@ function confirmExit() {
 						'rating': $.cookie('user_id') + ':  -1'
 					},
 			   success: function(data){
-				   $.cookie('current_chatroom', '');
+				   $.removeCookie('current_chatroom');
 			   }
 			});	
 		} else {
 			$.ajax({
 			   type: "POST",
 			   url: "clearroom.php",
+			   data: {  
+						'current_chatroom': $.cookie('current_chatroom')
+				},
 			   success: function(data){	   
-					$.cookie('current_chatroom', '');
+					$.removeCookie('current_chatroom');
 			   }
 			});
 		}
@@ -341,8 +346,11 @@ function confirmExit() {
 			$.ajax({
 				type: "POST",
 				url: "clearroom.php",
+				data: {  
+						'current_chatroom': $.cookie('current_chatroom')
+				},
 				success: function(data){
-					$.cookie('current_chatroom', '');
+					$.removeCookie('current_chatroom');
 					hasRated = true;
 					window.location = 'index.php';
 				}
@@ -350,7 +358,7 @@ function confirmExit() {
 		} else { // 2 people in chatroom, someone hits End Conversation
 			if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
 				clearInterval(updateInterval);
-				$.cookie('current_chatroom', '');
+				$.removeCookie('current_chatroom');
 				hasRated = true;
 				showRatingBox(false);
 			}
