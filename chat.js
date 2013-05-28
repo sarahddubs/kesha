@@ -196,8 +196,7 @@ function showRatingBox(partnerDisconnected) {
 					   success: function(data){
 					   		$.removeCookie('current_chatroom');
 					   		hasRated = true;
-					   		console.log("hasRated changed to " + hasRated);	
-					   		console.log("num is " + num);   
+					   		console.log("hasRated changed to " + hasRated);
 							$(box).dialog('close');
 							window.location = 'index.php';
 					   }
@@ -313,6 +312,7 @@ function unlockChat() {
 // IF USER CLOSES TAB WINDOW
 window.onbeforeunload = confirmExit;
 function confirmExit() {
+	console.log("hasRated is " + hasRated);
 	if (!hasRated){
 		if (usersReady) {
 			$.ajax({
@@ -322,6 +322,7 @@ function confirmExit() {
 						'chat_filename': file_name,
 						'rating': $.cookie('user_id') + ':  -1'
 					},
+			   async: false,
 			   success: function(data){
 				   $.removeCookie('current_chatroom');
 			   }
@@ -333,35 +334,36 @@ function confirmExit() {
 			   data: {  
 						'current_chatroom': $.cookie('current_chatroom')
 				},
+			   async: false,
 			   success: function(data){	   
 					$.removeCookie('current_chatroom');
 			   }
 			});
 		}
+		
 	}
 }
-	
-	$('#end-convo').click(function() {
-		if (!usersReady) { // 1 person in chatroom, return to index
-			$.ajax({
-				type: "POST",
-				url: "clearroom.php",
-				data: {  
-						'current_chatroom': $.cookie('current_chatroom')
-				},
-				success: function(data){
-					$.removeCookie('current_chatroom');
-					hasRated = true;
-					window.location = 'index.php';
-				}
-			});
-		} else { // 2 people in chatroom, someone hits End Conversation
-			if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
-				clearInterval(updateInterval);
+
+$('#end-convo').click(function() {
+	if (!usersReady) { // 1 person in chatroom, return to index
+		$.ajax({
+			type: "POST",
+			url: "clearroom.php",
+			data: {  
+					'current_chatroom': $.cookie('current_chatroom')
+			},
+			success: function(data){
 				$.removeCookie('current_chatroom');
 				hasRated = true;
-				showRatingBox(false);
+				window.location = 'index.php';
 			}
+		});
+	} else { // 2 people in chatroom, someone hits End Conversation
+		if (confirm("Are you sure you wish to end this conversation? There's no going back if you do.")){
+			clearInterval(updateInterval);
+			$.removeCookie('current_chatroom');
+			hasRated = true;
+			showRatingBox(false);
 		}
-	
+	}
 });

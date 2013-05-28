@@ -94,6 +94,7 @@
 					   },
 					   success: function(data){	   
 						   $.removeCookie('current_chatroom');
+						   window.location = 'index.php';
 						   console.log("CLEARED THE ROOM");
 					   }
 				   });
