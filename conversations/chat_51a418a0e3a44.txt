@@ -1,0 +1,6 @@
+USER#1:51a418a0e39ff USER#2:51a40d8355a7b
+1369708741318 51a418a0e39ff ok 
+1369708746438 51a40d8355a7b hello conversation partner 
+1369708744022 51a418a0e39ff im closing the window n 
+ END###:51a418a0e39ff:  -1
+ END###:51a40d8355a7b: 2
