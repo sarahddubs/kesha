@@ -10,7 +10,7 @@
 		"6###Which of these is not a dining hall?###Arrillaga###Flomo###Stern###Terman",
 		"7###Which of these is not a dining hall?###Wilbur###Lag###Davenport###Ricker",
 		"8###Where can you get late-night dining?###Manz###Arrillaga###Flomo###Branner",
-		"9###Which of these is not a dorm?###Galvez###Casa Zapata###Ujamaa###Okada###",
+		"9###Which of these is not a dorm?###Galvez###Casa Zapata###Ujamaa###Okada",
 		"10###What is the maximum number of units an undergrad can take?###20###15###10###25",
 		"11###What is the term for the week before finals week?###Dead Week###Pre-Final Week###Death Week###Worst Week",
 	);
