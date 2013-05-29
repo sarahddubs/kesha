@@ -7,17 +7,21 @@
 		.ui-dialog-buttonset button{
 			margin-top: 0px;
 			display: inline;
-			
+			margin-right: 5px;
 		}
 
 		.ui-dialog-buttonset {
-			width: 140px;
+			width: 160px;
 			right: 30px;
 		}
 		#timer {
 			font-size: 17px;
 			right: 20px;
 			padding-left: 25px;
+		}
+		
+		.ui-dialog-buttonpane {
+			padding: 0 0 5px 140px;
 		}
 	</style>
 

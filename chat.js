@@ -196,7 +196,6 @@ function showRatingBox(partnerDisconnected) {
 					   success: function(data){
 					   		$.removeCookie('current_chatroom');
 					   		hasRated = true;
-					   		console.log("hasRated changed to " + hasRated);
 							$(box).dialog('close');
 							window.location = 'index.php';
 					   }
@@ -312,7 +311,6 @@ function unlockChat() {
 // IF USER CLOSES TAB WINDOW
 window.onbeforeunload = confirmExit;
 function confirmExit() {
-	console.log("hasRated is " + hasRated);
 	if (!hasRated){
 		if (usersReady) {
 			$.ajax({
