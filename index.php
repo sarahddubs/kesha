@@ -74,7 +74,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="jquery.cookie.js"></script>
 
-<script src="indexMIN.js"></script>
+<script src="index.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>	
 
 <script>

@@ -46,7 +46,7 @@
 	
 	
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="chatMIN.js"></script>
+    <script type="text/javascript" src="chat.js"></script>
 	<script src="jquery.cookie.js"></script>
 	<script src="star-rating/jquery.rating.pack.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>	
